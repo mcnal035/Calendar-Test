@@ -13,13 +13,15 @@ import {takeEvery, put} from 'redux-saga/effects';
 import createSagaMiddleware from 'redux-saga';
 
 function* rootSaga(){
-yield takeEvery('FETCH_LIST', fetchList);
+    yield takeEvery('FETCH_LIST', fetchList);
 }
 
 function* fetchList () {
     try{
         const response = yield axios.get('/schedule');
+        console.log('in fetchList', response);
         yield put({type: 'SET_LIST', payload: response.data})
+        console.log('response.data', response.data);
     } catch (error){
         console.log('error in GET', error)
     }
@@ -30,10 +32,8 @@ function* fetchList () {
 
 
 
-const sagaMiddleware = createSagaMiddleware();
-
-
 const getTrip = (state=[], action) =>{
+    console.log('state', state);
     switch (action.type) {
         case 'SET_LIST':
             return action.payload;
@@ -43,7 +43,7 @@ const getTrip = (state=[], action) =>{
 }
 
 
-
+const sagaMiddleware = createSagaMiddleware();
 
 const storeInstance = createStore(
     combineReducers({
