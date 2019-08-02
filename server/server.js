@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('build'));
 
 /* Routes */
-app.use('/api/schedule', timeRouter);
+app.use('/schedule', timeRouter);
 
 // App Set //
 const PORT = process.env.PORT || 5000;
