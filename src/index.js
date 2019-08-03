@@ -14,6 +14,7 @@ import createSagaMiddleware from 'redux-saga';
 
 function* rootSaga () {
     yield takeEvery('FETCH_LIST', fetchList);
+    yield takeEvery('ADD_DATE', postList)
 }
 // Sagas
 function* fetchList () {
@@ -28,11 +29,17 @@ function* fetchList () {
 }
 
 
-function* postList () {
-    try{
-        const response =
+function* postList (action) {
+    console.log('in post');
+    try {
+      const response = yield axios.post('/schedule', action.payload );
+      console.log(response);
+      //yield put({ type: 'FETCH_LIST'});
+    } catch (error) {
+      console.log('error', error);
     }
-}
+  }
+
 const sagaMiddleware = createSagaMiddleware();
 
 

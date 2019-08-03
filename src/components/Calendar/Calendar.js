@@ -16,10 +16,9 @@ class Calendar extends Component {
     }
 
     handleSubmit = (event) =>{
-        //this.props.disptach({}); // need to create a post to DB.
         event.preventDefault();
-        console.log('clicked submit')
-        
+        this.props.disptach({type:'ADD_DATE', payload: this.state.newTripTimes}); // need to create a post to DB.
+        console.log('clicked submit', this.state.newTripTimes)
     }
 
 

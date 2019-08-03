@@ -17,4 +17,20 @@ router.get('/', (req, res) => {
         });
 });
 
+router.post('/', (req,res) =>{
+    const newTripTimes = req.body;
+    const queryText = `INSERT INTO "schedule" ("start_date", "end_date", "name") VALUES($1, $2, $3);`;
+    const queryValues = [
+        newTripTimes.start_date,
+        newTripTimes.end_date,
+        newTripTimes.name,
+    ];
+    pool.query(queryText, queryValues)
+    .then(() => { res.sendStatus(201); })
+    .catch((err) => {
+      console.log('Error completing SELECT plant query', err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
