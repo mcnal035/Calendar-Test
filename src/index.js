@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from '../src/components/App/App';
-import * as serviceWorker from './serviceWorker';
+import App from './components/App/App';
+
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 // Provider allows us to use redux within our react app
@@ -12,10 +12,10 @@ import axios from 'axios';
 import {takeEvery, put} from 'redux-saga/effects';
 import createSagaMiddleware from 'redux-saga';
 
-function* rootSaga(){
+function* rootSaga () {
     yield takeEvery('FETCH_LIST', fetchList);
 }
-
+// Sagas
 function* fetchList () {
     try{
         const response = yield axios.get('/schedule');
@@ -23,15 +23,20 @@ function* fetchList () {
         yield put({type: 'SET_LIST', payload: response.data})
         console.log('response.data', response.data);
     } catch (error){
-        console.log('error in GET', error)
+        console.log('error in GETTing Dates', error)
     }
 }
 
 
+function* postList () {
+    try{
+        const response =
+    }
+}
+const sagaMiddleware = createSagaMiddleware();
 
 
-
-
+// Reducers
 const getTrip = (state=[], action) =>{
     console.log('state', state);
     switch (action.type) {
@@ -42,9 +47,6 @@ const getTrip = (state=[], action) =>{
     }
 }
 
-
-const sagaMiddleware = createSagaMiddleware();
-
 const storeInstance = createStore(
     combineReducers({
         getTrip,
@@ -52,6 +54,8 @@ const storeInstance = createStore(
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
 );
+
+
 
 sagaMiddleware.run(rootSaga);
 
@@ -61,4 +65,4 @@ ReactDOM.render(<Provider store={storeInstance}> <App /></Provider>, document.ge
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+

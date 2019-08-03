@@ -5,6 +5,7 @@ class Calendar extends Component {
     
     state={
         newTripTimes: {
+            name: '',
             tripStart: '',
             tripEnd: '',
         }
@@ -36,13 +37,15 @@ render() {
     <div>
         {JSON.stringify(this.state.event)}
       <form onSubmit={this.handleSubmit}>
-          <label>Start Date:</label>
+          <label>Start Date:</label>   
       <input type="date" id="start" name="trip-start"
        onChange={(event) => this.handleChange(event, 'tripStart')} />
        <label>End Date:</label>
        <input type="date" id="end" name="trip-end" 
        onChange={(event) => this.handleChange(event, 'tripEnd')}
        />
+       <label>Name:</label>
+       <input type="text" name="name"></input> 
           <button>Submit</button>
       </form>
       <p>hello</p>
@@ -50,6 +53,8 @@ render() {
           {this.props.reduxStore.getTrip.map( item =>
             <>
            {item.start_date}
+           {item.end_date}
+           {item.name}
             <style type="text/css">
             </style>
             <table class="tg" key={item.id}>

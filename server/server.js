@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 
 // Route
-const timeRouter = require('./routes/timeRouter');
+const timeRouter = require('./routes/time.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
