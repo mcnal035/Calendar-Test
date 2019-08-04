@@ -6,9 +6,10 @@ import TableCell from '@material-ui/core/TableCell';
 class Calendar extends Component {
     
     state={
-        newTripTimes: {
-            startDate: new Date(year, month, date),
-            endDate: new Date(),
+        newTripTime: {
+            id: 0,
+            startDate: '', //new Date()
+            endDate: '',
             name: '',
         }
     }
@@ -20,8 +21,8 @@ class Calendar extends Component {
     handleChange = (event, propToChange) =>{
         console.log('entered date', event.target.value);
         this.setState = ({
-            newTripTimes: {
-                  ...this.state.newTripTimes,
+            newTripTime: {
+                  ...this.state.newTripTime,
                 [propToChange]: event.target.value,
             }
         });
@@ -29,26 +30,25 @@ class Calendar extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.dispatch({type:'ADD_DATE', payload: this.state.newTripTimes}); // need to create a post to DB.
-        
+        this.props.dispatch({type:'ADD_DATE', payload: this.state.newTripTime}); // need to create a post to DB. 
     }
 
 render() {
   return (
     <div>
-        {JSON.stringify(this.state.newTripTimes)}
+        {JSON.stringify(this.state.newTripTime)}
       <form onSubmit={this.handleSubmit}>
           <label>Start Date:</label>   
-      <input type="date" min="2018-08-04" max="2020-04-02"  value={this.state.newTripTimes.startDate}
+      <input type="date" min="2018-08-04" max="2020-04-02" 
        onChange={(event) => this.handleChange(event, 'startDate')} />
        <label>End Date:</label>
-       <input type="date" value={this.state.newTripTimes.endDate}
+       <input type="date" 
        onChange={(event) => this.handleChange(event, 'endDate')}
        />
        <label>Name:</label>
-       <input type="text" value={this.state.newTripTimes.name}
+       <input type="text"
        onChange={(event) => this.handleChange(event, 'name')}/> 
-          <button>Submit</button>
+          <button type="submit">Submit</button>
       </form>
       <p>hello</p>
       <div>

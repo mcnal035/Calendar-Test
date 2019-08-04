@@ -33,7 +33,7 @@ function* postList (action) {
     console.log('in post');
     try {
       const response = yield axios.post('/schedule', action.payload );
-      console.log(response);
+      console.log(response.data);
       yield put({ type: 'FETCH_LIST'});
     } catch (error) {
       console.log('error', error);
