@@ -7,14 +7,14 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 // Provider allows us to use redux within our react app
 import { Provider } from 'react-redux';
-import logger from 'redux-logger';
+import {logger} from 'redux-logger';
 import axios from 'axios';
 import {takeEvery, put} from 'redux-saga/effects';
 import createSagaMiddleware from 'redux-saga';
 
 function* rootSaga () {
     yield takeEvery('FETCH_LIST', fetchList);
-    yield takeEvery('ADD_DATE', postList)
+    yield takeEvery('ADD_DATE', postList);
 }
 // Sagas
 function* fetchList () {
@@ -30,7 +30,7 @@ function* fetchList () {
 
 
 function* postList (action) {
-    console.log('in post');
+    console.log('in post', action.payload);
     try {
       const response = yield axios.post('/schedule', action.payload );
       console.log(response.data);

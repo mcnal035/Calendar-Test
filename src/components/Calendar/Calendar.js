@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
+
 class Calendar extends Component {
     
-    state={
+    state = {
         newTripTime: {
-            id: 0,
-            startDate: '', //new Date()
-            endDate: '',
+            startDate: new Date(''), //new Date()
+            endDate:  Date(''),
             name: '',
         }
     }
@@ -18,12 +18,12 @@ class Calendar extends Component {
         this.props.dispatch({type:'FETCH_LIST'});
     }
 
-    handleChange = (event, propToChange) =>{
-        console.log('entered date', event.target.value);
+    handleChange = (event, propertyName) =>{
+        console.log('entered date',  event.target.value);
         this.setState = ({
             newTripTime: {
                   ...this.state.newTripTime,
-                [propToChange]: event.target.value,
+                [propertyName]: event.target.value,
             }
         });
     }
@@ -36,7 +36,7 @@ class Calendar extends Component {
 render() {
   return (
     <div>
-        {JSON.stringify(this.state.newTripTime)}
+        {JSON.stringify(this.state)}
       <form onSubmit={this.handleSubmit}>
           <label>Start Date:</label>   
       <input type="date" min="2018-08-04" max="2020-04-02" 
@@ -54,7 +54,7 @@ render() {
       <div>
           {this.props.reduxStore.getTrip.map( item =>
             <>
-            <TableRow key={item.id} vlaue={item.id}>
+            <TableRow key={item.id} value={item.id}>
                 <TableCell>Reserved: {item.name} <br/></TableCell> 
                 <TableCell>Start: {item.start_date.substring(5, 7)+ "/" + item.start_date.substring(8,10)+ "/" + item.start_date.substring(0,4)}<br/></TableCell>
                 <TableCell>End: {item.end_date.substring(5, 7)+ "/" + item.end_date.substring(8,10)+ "/" + item.end_date.substring(0,4)} <br/></TableCell>
