@@ -34,7 +34,7 @@ function* postList (action) {
     try {
       const response = yield axios.post('/schedule', action.payload );
       console.log(response);
-      //yield put({ type: 'FETCH_LIST'});
+      yield put({ type: 'FETCH_LIST'});
     } catch (error) {
       console.log('error', error);
     }

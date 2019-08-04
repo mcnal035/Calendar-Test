@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     // return all times
-    const queryText = `SELECT * FROM schedule;`;
+    const queryText = `SELECT * FROM schedule ORDER BY start_date ASC;`;
     pool.query(queryText)
         .then( (result) => {
             res.send(result.rows);
@@ -18,8 +18,10 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req,res) =>{
+    console.log('req.body', req.body);
     const newTripTimes = req.body;
-    const queryText = `INSERT INTO "schedule" ("start_date", "end_date", "name") VALUES($1, $2, $3);`;
+    const queryText = `INSERT INTO "schedule" ("start_date", "end_date", "name") 
+    VALUES ($1, $2, $3);`;
     const queryValues = [
         newTripTimes.start_date,
         newTripTimes.end_date,
@@ -28,7 +30,7 @@ router.post('/', (req,res) =>{
     pool.query(queryText, queryValues)
     .then(() => { res.sendStatus(201); })
     .catch((err) => {
-      console.log('Error completing SELECT plant query', err);
+      console.log('Error completing POST Dates', err);
       res.sendStatus(500);
     });
 });
