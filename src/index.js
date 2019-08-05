@@ -45,7 +45,6 @@ const sagaMiddleware = createSagaMiddleware();
 
 // Reducers
 const getTrip = (state=[], action) =>{
-    console.log('state', state);
     switch (action.type) {
         case 'SET_LIST':
             return action.payload;
