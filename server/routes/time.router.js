@@ -23,8 +23,8 @@ router.post('/', (req,res) =>{
     const queryText = `INSERT INTO "schedule" ("start_date", "end_date", "name") 
     VALUES ($1, $2, $3);`;
     const queryValues = [
-        newTripTimes.start_date,
-        newTripTimes.end_date,
+        newTripTimes.startDate,
+        newTripTimes.endate,
         newTripTimes.name,
     ];
     pool.query(queryText, queryValues)

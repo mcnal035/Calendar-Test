@@ -7,11 +7,11 @@ import Calendar from 'react-calendar';
 
 
 class CalendarList extends Component {
-    
+    // holds the state of the selected dates to be sent to the database.
     state = {
         newTripTime: {
             startDate: '', //new Date()
-            endDate:  [new Date('')],
+            endDate:  '',
             name: '',
         }
     }
@@ -19,17 +19,17 @@ class CalendarList extends Component {
     componentDidMount(){
         this.props.dispatch({type:'FETCH_LIST'});
     }
-
-    handleChange = (event, propertyName) =>{
+    // sets the state of the dates
+    handleChange = (event, propertyName) => {
         console.log('entered date',  event.target.value);
-        this.setDate = ({
+        this.setState({
             newTripTime: {
                  ...this.state.newTripTime,
                 [propertyName]: event.target.value,
             }
         });
     }
-
+    // sends the new date to the DB.
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.dispatch({type:'ADD_DATE', payload: this.state.newTripTime}); // need to create a post to DB. 
@@ -38,7 +38,7 @@ class CalendarList extends Component {
 render() {
   return (
     <div>
-        {JSON.stringify(this.state)}
+        {JSON.stringify(this.state.newTripTime)}
       <form onSubmit={this.handleSubmit}>
           <label>Start Date:</label>   
       <input type="date" min="2018-08-04" max="2020-04-02" 
